@@ -3,7 +3,7 @@
 #' @param model_input A list/json object with "age","charlson","FEV1",
 #' "mMRC" (which is a number for the dyspnea scale of modified Medical Research Council)
 #'  ,and "exacerbation"
-#' @return Return a dataset with four columns: CI_score, FEV1_score, MRC_score, exac_score
+#' @return Return sum of CI_score, FEV1_score, MRC_score and exac_score as CODEX_score
 #'
 
 model_run<-function(model_input = NULL)
