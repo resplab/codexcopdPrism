@@ -1,51 +1,33 @@
+#' @title Run codexcopd Model
+#' @description This function calls the codexcopd model.
+#' @param model_input A list/json object with "age","charlson","FEV1",
+#' "mMRC" (which is a number for the dyspnea scale of modified Medical Research Council)
+#'  ,and "exacerbation"
+#' @return Return a dataset with four columns: CI_score, FEV1_score, MRC_score, exac_score
+#'
+
 model_run<-function(model_input = NULL)
 {
 
   input<-unflatten_list(model_input)
-  # replace the function below with main model function takes model inputs and returns the output.
-  # for example, for bode package we will have:
-  # results <- bode              (FEV1                   =model_input$FEV1,
-  #                               mMRC                   =model_input$mMRC,
-  #                               BMI                    =model_input$BMI,
-  #                               walk                   =model_input$walk)
-  #
-  # for cfmortality package, we will have:
-  # results <- predictcfmortality(age                    =model_input$age,
-  #                               male                   =model_input$male,
-  #                               fvc                    =model_input$fvc,
-  #                               fev1                   =model_input$fev1,
-  #                               fev1LastYear           =model_input$fev1LastYear,
-  #                               bcepacia               =model_input$bcepacia,
-  #                               underweight            =model_input$underweight,
-  #                               nHosp                  =model_input$nHosp,
-  #                               pancreaticInsufficient =model_input$pancreaticInsufficient,
-  #                               CFRelatedDiabetes      =model_input$CFRelatedDiabetes,
-  #                               ageAtDiagnosis         =model_input$ageAtDiagnosis        )
+
+  results <- codex              (age                    =model_input$age,
+                                 charlson               =model_input$charlson,
+                                 FEV1                   =model_input$FEV1,
+                                 mMRC                   =model_input$mMRC,
+                                 exacerbation           =model_input$exacerbation)
 
   return(as.list(results))
 }
 
 
 get_default_input <- function() {
-  # replace the function below with default model inputs for the new Prism model.
-  # for example, for bode package we will have:
-  # model_input <- list(FEV1                   = 40,
-  #                     mMRC                   = 3,
-  #                     BMI                    = 22,
-  #                     walk                   = 100)
-  #
-  # for cfmortality package, we will have:
-  # model_input <- list(age                    = 16,
-  #                     male                   = 0,
-  #                     fvc                    = 66.7,
-  #                     fev1                   = 47.4,
-  #                     fev1LastYear           = 80.5,
-  #                     bcepacia               = 0,
-  #                     underweight            = 0,
-  #                     nHosp                  = 0,
-  #                     pancreaticInsufficient = 1,
-  #                     CFRelatedDiabetes      = 0,
-  #                     ageAtDiagnosis         = 0.9)
+  model_input <- list(age                 = 40,
+                      charlson            = 8,
+                      FEV1                = 40,
+                      mMRC                = 3,
+                      exacerbation        = 2)
+
   return((flatten_list(model_input)))
 }
 
